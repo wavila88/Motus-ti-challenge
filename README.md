@@ -56,7 +56,8 @@ An example was created to demonstrate how automatic scalability can be managed i
 This setup enables **horizontal scalability**, allowing the infrastructure to automatically adjust and provision additional resources when system load increases.
 
 Print from lens
-<img width="1899" height="580" alt="image" src="https://github.com/user-attachments/assets/47b9f192-47b4-4885-a5d3-74eaf9ae3185" />
+<img width="1571" height="420" alt="image" src="https://github.com/user-attachments/assets/8f43633b-f987-45eb-a16f-7847053bf737" />
+
 
 
 
