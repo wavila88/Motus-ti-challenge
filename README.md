@@ -1,20 +1,14 @@
-# Exercise CRUD with C# .NET and React JS 🎯
-Before watch details, I created a video to make a presentation of this exercise:
-
-<a href="https://youtu.be/APT2GkYLCtQ" target="_blank">YouTube video</a>
-
+# Exercise .NET and React JS 🎯
 
 In this project we will create a CRUD of Users using the folowing indications:
 
+## Technologies
 
-## Indications 
-## Back end requirements
- * Create a RESTful API for managing employee records with the following fields: id (int, clave primaria), firstName (string), lastName (string), title (string), email (string). (implementation [link](https://github.com/wavila88/CrudReactC-/blob/main/ChallengeBack/Domain/DTO/UserDto.cs))  
- * Implement CRUD operations (controller implementation [link](https://github.com/wavila88/CrudReactC-/blob/main/ChallengeBack/ChallengeBack/Controllers/UserController.cs))
- * Use Entity Framework Core with an in-memory database initially, and then with local SQL Server. 
-(implementation [link](https://github.com/wavila88/CrudReactC-/blob/main/ChallengeBack/RepositorySQL/Queries/UserRepository.cs))
-*  Validate JSON data (required fields, valid email format). (validation backend line 35 [link](https://github.com/wavila88/CrudReactC-/blob/main/ChallengeBack/Domain/UserService/UserService.cs), Front line 99 [link](https://github.com/wavila88/CrudReactC-/blob/main/front-user/src/components/user/user.tsx) ) 
-*  Protect endpoints with token-based authentication (simulating Azure AD with a hardcoded token in the headers). (implemented [link](https://github.com/wavila88/CrudReactC-/blob/main/ChallengeBack/ChallengeBack/Controllers/TokenAuthAttribute.cs))
+- **Frontend:** React, organized using **Feature-Based Architecture**.
+- **Backend:** .NET, implemented with **Hexagonal Architecture** for maintainability and scalability.
+- **Database:** SQL Server with its docker file on repository use of Entity **Framework DataFirst**.
+- **IaC:** Terraform for infrastructure deployment.
+
 
 ## Arquitecture back end  
 
@@ -35,33 +29,49 @@ Here, we're implementing the Hexagonal Architecture, keeping all the business lo
 
 **D** Dependency Inversion Principle: High-level modules (Domain) should not depend on low-level modules; in this case, abstractions are used—a clear example of ports and adapters."
 
-## Front end requirements
+# 🛠️ Migration Strategy: Data First
 
-* Create a React app that consumes the API. Display a list of employees.
-<br><b>Response:</b> created hooks with @tanstack/react-query here encapsulate all Api call [link](https://github.com/wavila88/CrudReactC-/tree/main/front-user/src/components/user/queries)
-* Include a form to add new employees.
-<br><b>Response:</b> added on the following [link](https://github.com/wavila88/CrudReactC-/blob/main/front-user/src/components/user/user.tsx)
-* Use TypeScript for type safety.
-<br><b>Response:</b> created ApiResponseDto to standarize api responses [link](https://github.com/wavila88/CrudReactC-/blob/main/front-user/src/types.tsx)
-* Perform asynchronous API calls with appropriate loading and error states.
-<br><b>Response:</b> Are controlled by the  @tanstack/react-query library it returns a very helpful object 
-* Use semantic HTML5 and CSS3 for styling (can be minimal). 
-<br><b>Response:</b>
-Bonus (Optional):applied on project 
+We follow a **Data First** approach for database migrations. The initial migration is executed via command line, which automatically creates the necessary tables based on the defined data models.
 
+---
+
+## 📋 Key Implementations
+
+### 🔍 AuditableEntity
+
+We use an `AuditableEntity` base model to enable auditing. This allows us to track whether a record has been **updated** or **deleted**, providing traceability and accountability across the system.
+
+### 🔐 Permission Authorization
+
+User access to specific pages is controlled through a permission-based system. The frontend integrates with the backend by calling the `ValidatePermission` API, which checks whether the **logged-in user** has access to the requested resource.
+
+This ensures that only authorized users can view or interact with protected routes or components.
+
+## Infrestructure as Code 
+
+## ⚙️ Infrastructure Scalability with Terraform
+
+An example was created to demonstrate how automatic scalability can be managed in a production environment using **Terraform**.
+
+This setup enables **horizontal scalability**, allowing the infrastructure to automatically adjust and provision additional resources when system load increases.
+
+Print from lens
+<img width="1571" height="420" alt="image" src="https://github.com/user-attachments/assets/8f43633b-f987-45eb-a16f-7847053bf737" />
+
+
+
+
+## Front end 
+ React, organized using **Feature-Based Architecture** 
 * Client-side form validation.
 <br><b>Response:</b> added validations with React-hook-form and materialize.
 * Use of React Hooks and functional components.
 <br><b>Response:</b> Created custom hooks. and use other hooks
 * Update and delete employee functionality.
 <br><b>Response:</b> Done.
-## Short video for presentation
+* Standarize API calls.
 
 
 
-## 🧱 Project Structure
-
-├── Api/ # Input adapter (controllers, DTOs) \
-├── Application/ # Use cases and orchestration \
 ├── Domain/ # Entities, interfaces (ports), business logic \
 ├── Infra/ # Output adapters (repositories, messaging) \
