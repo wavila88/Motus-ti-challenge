@@ -278,8 +278,9 @@ namespace RepositorySQL.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("date_of_birth");
 
-                    b.Property<int>("DocumentNumber")
-                        .HasColumnType("int")
+                    b.Property<string>("DocumentNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("document_number");
 
                     b.Property<string>("Email")
@@ -326,7 +327,7 @@ namespace RepositorySQL.Migrations
                             UserId = 1,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DocumentNumber = 12345678,
+                            DocumentNumber = "12345678",
                             Email = "admin@gmail.com",
                             FirstName = "Admin",
                             IsDeleted = false,
@@ -339,7 +340,7 @@ namespace RepositorySQL.Migrations
                             UserId = 2,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DocumentNumber = 23456789,
+                            DocumentNumber = "23456789",
                             Email = "lead@gmail.com",
                             FirstName = "Lead",
                             IsDeleted = false,
@@ -352,7 +353,7 @@ namespace RepositorySQL.Migrations
                             UserId = 3,
                             CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DateOfBirth = new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DocumentNumber = 34567890,
+                            DocumentNumber = "34567890",
                             Email = "sales@gmail.com",
                             FirstName = "Sales",
                             IsDeleted = false,

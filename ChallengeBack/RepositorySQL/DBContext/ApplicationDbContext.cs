@@ -79,7 +79,7 @@ namespace RepositorySQL.DBContext
                 FirstName = "Admin",
                 LastName = "Admin",
                 Email = "admin@gmail.com",
-                DocumentNumber = 12345678,
+                DocumentNumber = "12345678",
                 DateOfBirth = new DateTime(1980, 1, 1),
                 RoleId = 1,
                 Password = "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==",
@@ -94,7 +94,7 @@ namespace RepositorySQL.DBContext
                 FirstName = "Lead",
                 LastName = "Lead",
                 Email = "lead@gmail.com",
-                DocumentNumber = 23456789,
+                DocumentNumber = "23456789",
                 DateOfBirth = new DateTime(1990, 1, 1),
                 RoleId = 2,
                 Password = "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", // same as admin
@@ -109,7 +109,7 @@ namespace RepositorySQL.DBContext
                 FirstName = "Sales",
                 LastName = "Person",
                 Email = "sales@gmail.com",
-                DocumentNumber = 34567890,
+                DocumentNumber = "34567890",
                 DateOfBirth = new DateTime(1995, 1, 1),
                 RoleId = 3,
                 Password = "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", // same as admin

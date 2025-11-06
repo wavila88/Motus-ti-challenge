@@ -5,8 +5,9 @@ import useQueryGetUserList from "../queries/useQueryGetUserList";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import useMutationDeleteUser  from "../queries/useMutationDeleteUser";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Authorize from "../../../shared/components/authorize";
+import BoardNavigation from "../../../shared/components/BoardNavigation";
 
 const UserList = () => {
   const URL = "/SalesLeadBoard";
@@ -31,6 +32,10 @@ const UserList = () => {
         (
           <>
             {mutationDelete.isPending && <h2>Loading...</h2>}
+            <nav style={{ margin: 16 }}>
+                <Link to="/" style={{ marginRight: 16 }}>Create User</Link>
+                <Link to="/list">User List</Link>
+            </nav>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
@@ -38,7 +43,7 @@ const UserList = () => {
                     <TableCell>First Name</TableCell>
                     <TableCell>Last Name</TableCell>
                     <TableCell>Email</TableCell>
-                    <TableCell>Position</TableCell>
+                    {/* <TableCell>Position</TableCell> */}
                     <TableCell>Update</TableCell>
                     <TableCell>Delete</TableCell>
 
@@ -50,7 +55,7 @@ const UserList = () => {
                       <TableCell>{user.firstName}</TableCell>
                       <TableCell>{user.lastName}</TableCell>
                       <TableCell>{user.email}</TableCell>
-                      <TableCell>{user.position}</TableCell>
+                      {/* <TableCell>{user.position}</TableCell> */}
                       <TableCell>
                         <EditIcon 
                           style={{ cursor: "pointer", color: "#1976d2" }} 
@@ -67,6 +72,7 @@ const UserList = () => {
                 </TableBody>
               </Table>
             </TableContainer>
+            <BoardNavigation />
           </>
 
         )

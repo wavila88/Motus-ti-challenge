@@ -33,6 +33,7 @@ namespace ChallengeBack
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+            builder.Services.AddScoped<IRolRepository, RolesRepository>();
 
             //DataBasecontext
             builder.Services.AddDbContext<ApplicationDbContext>(options =>

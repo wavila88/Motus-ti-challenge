@@ -23,7 +23,7 @@ namespace RepositorySQL.Models
         public string Password { get; set; }
 
         [Column("document_number")]
-        public int DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; }
 
         [Column("date_of_birth")]
         public DateTime DateOfBirth { get; set; }

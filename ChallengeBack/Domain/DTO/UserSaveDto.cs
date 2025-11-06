@@ -15,7 +15,7 @@ namespace Domain.DTO
 
         public string Password { get; set; }
         public string Email { get; set; }
-        public int DocumentNumber { get; set; }
+        public string DocumentNumber { get; set; }
 
         public DateTime DateOfBirth { get; set; }
         public int RoleId { get; set; }

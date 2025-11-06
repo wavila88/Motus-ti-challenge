@@ -1,20 +1,19 @@
 import { useMutation } from "@tanstack/react-query";
-import type { ApiResponseDTO } from "../../../shared/types";
+import type { ApiResponseDTO, AuthRequest } from "../../../shared/types";
 import type { User } from "../types";
 import { useAuth } from "../../../shared/context/AuthContext";
 
 const USER_API_URL = `${import.meta.env.VITE_API_URL}/User`;
 
-async function saveUser(user: User): Promise<ApiResponseDTO<any>> {
-        const { userInfo } = useAuth(); 
+async function saveUser(req: AuthRequest<User>): Promise<ApiResponseDTO<any>> {
         const response = await fetch(USER_API_URL, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
-                "Authorization": userInfo ? `Bearer ${userInfo.token}` : ""
+                "Authorization": req ? `Bearer ${req.token}` : ""
             },
             credentials: 'include',
-            body: JSON.stringify(user),
+            body: JSON.stringify(req.request),
         });
         if (!response.ok) {
             // Try to parse error message from backend if available
@@ -31,7 +30,7 @@ async function saveUser(user: User): Promise<ApiResponseDTO<any>> {
 }
 
 const useMutationSaveUser = () => {
-    return useMutation<ApiResponseDTO<any>, Error, any>({
+    return useMutation<ApiResponseDTO<any>, Error, AuthRequest<User>>({
         mutationKey: ["saveUser"],
         mutationFn: saveUser,
     });

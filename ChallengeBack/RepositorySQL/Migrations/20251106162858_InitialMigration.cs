@@ -85,7 +85,7 @@ namespace RepositorySQL.Migrations
                     last_name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     password = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    document_number = table.Column<int>(type: "int", nullable: false),
+                    document_number = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     date_of_birth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     role_id = table.Column<int>(type: "int", nullable: false),
                     created_at = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -146,9 +146,9 @@ namespace RepositorySQL.Migrations
                 columns: new[] { "user_id", "created_at", "date_of_birth", "document_number", "email", "first_name", "is_deleted", "last_name", "password", "role_id", "updated_at" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 12345678, "admin@gmail.com", "Admin", false, "Admin", "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", 1, null },
-                    { 2, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 23456789, "lead@gmail.com", "Lead", false, "Lead", "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", 2, null },
-                    { 3, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 34567890, "sales@gmail.com", "Sales", false, "Person", "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", 3, null }
+                    { 1, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "12345678", "admin@gmail.com", "Admin", false, "Admin", "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", 1, null },
+                    { 2, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "23456789", "lead@gmail.com", "Lead", false, "Lead", "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", 2, null },
+                    { 3, new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1995, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "34567890", "sales@gmail.com", "Sales", false, "Person", "AQAAAAIAAYagAAAAENIUj5SqM/oi9lmqZeXqSAeTllDpRPgOobsjTzZ6zB0E2OFkcXfRfKJO1dJjsPDi3g==", 3, null }
                 });
 
             migrationBuilder.CreateIndex(
