@@ -17,8 +17,8 @@ provider "kubernetes" {
 # --- Namespace ---
 resource "kubernetes_namespace" "app_ns" {
   metadata {
-    # Namespace Name: back-game-app
-    name = "back-game-app"
+    # Namespace Name: back-mouts-app
+    name = "back-mouts-app"
   }
 }
 # --- Namespace for front---
@@ -63,7 +63,7 @@ resource "kubernetes_deployment" "app" {
           # CRITICAL: Tells Kubernetes to only use the local image (from Minikube's internal registry)
           image_pull_policy = "IfNotPresent" 
            # Custom image for your backend
-          image = "back-game-of-life/backend:v3.0" 
+          image = "test-mouts-backend/backend:v1.0" 
           port {
             container_port = 80
           }

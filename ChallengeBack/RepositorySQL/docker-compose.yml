@@ -1,3 +1,4 @@
+#Docker file to create a SQL Server container with initialization script
 services:
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2019-latest

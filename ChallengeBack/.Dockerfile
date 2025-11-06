@@ -1,37 +1,41 @@
 # ==========================================================
 # STAGE 1: BUILD - Copies the entire solution and publishes the executable project
 # ==========================================================
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
 
-# Copies all solution files to the working directory
-COPY . . 
-
-# Restores dependencies for the entire solution
-RUN dotnet restore "back-game-of-life.sln"
-
-# Navigate to the executable project folder (assuming 'Api' is the main project)
-# If your main project has another name (e.g., 'Infra' or 'Web'), change it here.
-WORKDIR /src/Api
-
-# Publish the final application to /app/publish
-# We will use the project directory name (Api) for publishing, unless the output name is overwritten
-RUN dotnet publish -c Release -o /app/publish
-
-# ==========================================================
-# STAGE 2: FINAL - Runtime image (smaller and safer)
-# ==========================================================
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS final
+# ----------------------------------------------------------
+# STAGE 1: Build
+# ----------------------------------------------------------
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
-# Forces the application to listen on Port 80 inside the container
+# Copia solo los archivos de la solución y los proyectos
+COPY ChallengeBack.sln ./
+COPY ChallengeBack/ChallengeBack.csproj ./ChallengeBack/
+COPY Domain/Domain.csproj ./Domain/
+COPY RepositorySQL/RepositorySQL.csproj ./RepositorySQL/
+
+# Copia el resto de los archivos de los proyectos
+COPY ChallengeBack/. ./ChallengeBack/
+COPY Domain/. ./Domain/
+COPY RepositorySQL/. ./RepositorySQL/
+
+# Restaura dependencias
+RUN dotnet restore "ChallengeBack.sln"
+
+# Publica el proyecto principal
+RUN dotnet publish ./ChallengeBack/ChallengeBack.csproj -c Release -o /out --no-restore
+
+# ----------------------------------------------------------
+# STAGE 2: Runtime
+# ----------------------------------------------------------
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
+WORKDIR /app
+
+# Expone el puerto 80
 ENV ASPNETCORE_URLS=http://+:80
 
-# Copies the publish result from the 'build' stage
-COPY --from=build /app/publish . 
+# Copia los archivos publicados
+COPY --from=build /out .
 
-# Defines the entry point to run the main DLL file.
-# ATTENTION: The DLL name MUST match your executable project name.
-# If your project in /Api is called 'Api.csproj', the DLL will be 'Api.dll'.
-# If the project name is different, adjust "Api.dll" here.
-ENTRYPOINT ["dotnet", "Api.dll"] 
+# Entry point
+ENTRYPOINT ["dotnet", "ChallengeBack.dll"]
