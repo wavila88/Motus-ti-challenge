@@ -71,7 +71,25 @@ Print from lens
 <br><b>Response:</b> Done.
 * Standarize API calls.
 
+Structure Model
 
+```plaintext
 
-├── Domain/ # Entities, interfaces (ports), business logic \
-├── Infra/ # Output adapters (repositories, messaging) \
+src/
+├── assets/                # Static assets like images, icons, fonts
+├── features/             # Domain-specific features
+│   ├── login/            # Login-related logic and components
+│   └── userManagement/   # User management functionality
+│       ├── components/   # UI components specific to this feature
+│       ├── queries/      # React Query hooks (fetching and mutations)
+│       └── types.tsx     # Type definitions for this feature
+├── shared/               # Reusable code across features
+│   ├── components/       # Generic UI components
+│   └── context/          # Global contexts (e.g., AuthContext)
+|   └── types.tsx         # Global type definitions
+├── services/             # API calls and external logic
+├── App.tsx               # Root component
+├── main.tsx              # Application entry point
+├── index.css             # Global styles
+      
+
