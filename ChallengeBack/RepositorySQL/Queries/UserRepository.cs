@@ -22,13 +22,18 @@ namespace RepositorySQL.Queries
              * Questions of time for this i will use 
              * Pagination.
              */
-            var users =_context.Users.ToListAsync();
+            var users =_context.Users.Include(u => u.Role).ToListAsync();
             return users.ContinueWith(t => t.Result.Select(user => new UserDto()
             {
                 UserId = user.UserId,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
+                Role = new RolDto() { 
+                    RoleId = user.Role.RoleId,
+                    Level = user.Role.Level,
+                    Name = user.Role.Name
+                } 
             }).ToList());
         }
 

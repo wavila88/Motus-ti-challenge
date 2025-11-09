@@ -6,7 +6,8 @@ export type User = {
   email: string;
   documentNumber: string;
   dateOfBirth: string;
-  roleId: string
+  roleId?: string;
+  role?: RolDto;
 };
 
 export type RolDto = {

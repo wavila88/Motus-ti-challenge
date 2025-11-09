@@ -33,8 +33,8 @@ const UserList = () => {
           <>
             {mutationDelete.isPending && <h2>Loading...</h2>}
             <nav style={{ margin: 16 }}>
-                <Link to="/" style={{ marginRight: 16 }}>Create User</Link>
-                <Link to="/list">User List</Link>
+                <Link to="/userEdit" style={{ marginRight: 16 }}>Create User</Link>
+                <Link to="/SalesLeadBoard">User List</Link>
             </nav>
             <TableContainer component={Paper}>
               <Table>
@@ -43,7 +43,7 @@ const UserList = () => {
                     <TableCell>First Name</TableCell>
                     <TableCell>Last Name</TableCell>
                     <TableCell>Email</TableCell>
-                    {/* <TableCell>Position</TableCell> */}
+                    <TableCell>Rol</TableCell>
                     <TableCell>Update</TableCell>
                     <TableCell>Delete</TableCell>
 
@@ -54,8 +54,9 @@ const UserList = () => {
                     <TableRow key={idx}>
                       <TableCell>{user.firstName}</TableCell>
                       <TableCell>{user.lastName}</TableCell>
+                      <TableCell>{user.documentNumber}</TableCell>
                       <TableCell>{user.email}</TableCell>
-                      {/* <TableCell>{user.position}</TableCell> */}
+                      <TableCell>{user.role?.name}</TableCell>
                       <TableCell>
                         <EditIcon 
                           style={{ cursor: "pointer", color: "#1976d2" }} 
@@ -72,7 +73,6 @@ const UserList = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <BoardNavigation />
           </>
 
         )

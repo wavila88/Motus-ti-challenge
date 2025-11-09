@@ -1,6 +1,6 @@
 import { Grid, TextField, Button, MenuItem } from "@mui/material";
-import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useForm, Watch } from "react-hook-form";
+import { useEffect, useState, useMemo } from "react";
 import useMutationSaveUser from "../queries/useMutationSaveUser";
 import { Link, useNavigate } from "react-router-dom";
 import Authorize from "../../../shared/components/authorize";
@@ -9,7 +9,7 @@ import { useAuth } from "../../../shared/context/AuthContext";
 import type { RolDto, User } from "../types";
 
 
-const User = () => {
+const UserComponent = () => {
     const URL = "/userEdit";
      const { userInfo } = useAuth();
     const navigate = useNavigate();
@@ -17,12 +17,20 @@ const User = () => {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset, 
+        watch
     } = useForm<User>();
-    const query  = useQueryGetRolesList({
-       request: userInfo?.levelAccess || 1,
-       token: userInfo?.token || ""
-    });
+    const [roles, setRoles] = useState<RolDto[]>([]);
+    const roleParams = useMemo(() => ({
+        request: userInfo?.levelAccess || 1,
+        token: userInfo?.token || ""
+    }), [userInfo?.levelAccess, userInfo?.token]);
+    const result = useQueryGetRolesList(roleParams);
+    useEffect(() => {
+        if (result.data && Array.isArray(result.data.data)) {
+            setRoles(result.data.data);
+        }
+    }, [result.data]);
  
     // Load user data from localStorage if available
     useEffect(() => {
@@ -34,7 +42,10 @@ const User = () => {
                 firstName: user.firstName,
                 lastName: user.lastName,
                 email: user.email,
-                roleId: user.roleId,
+                roleId: user.roleId, 
+                documentNumber: user.documentNumber,
+                password: user.password,
+                role: user.role,
                 dateOfBirth: user.dateOfBirth ? user.dateOfBirth : null,
             });
             localStorage.removeItem('editUser');
@@ -72,8 +83,8 @@ const User = () => {
         <>
             {/* <Authorize url={URL} /> */}
             <nav style={{ margin: 16 }}>
-                <Link to="/" style={{ marginRight: 16 }}>Create User</Link>
-                <Link to="/userEdit">User List</Link>
+                <Link to="/userEdit" style={{ marginRight: 16 }}>Create User</Link>
+                <Link to="/SalesLeadBoard">User List</Link>
             </nav>
             {mutation.isPending && <h2>Loading ...</h2>}
             <form onSubmit={handleSubmit(SaveUser)}>
@@ -164,7 +175,7 @@ const User = () => {
                                 },
                                 //Validations for password format
                                  pattern: {
-                                    value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/,
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}[\]:\";'<>?,./]).{8,}$/,
                                     message: "Invalid password format"
                                 }
                             })}
@@ -192,10 +203,11 @@ const User = () => {
                         />
                     </Grid>
                     <Grid size={12} />
-                    <Grid size={{ xs: 4 }}>
+                    <Grid size={4}>
                         <TextField
                             select
                             fullWidth
+                            defaultValue={watch("roleId") || (roles[0]?.roleId ?? "")}
                             {...register("roleId", {
                                 required: "Role is required",
                                 minLength: {
@@ -210,7 +222,7 @@ const User = () => {
                             variant="outlined"
                             helperText={typeof errors["roleId"]?.message === "string" ? errors["roleId"]?.message : ""}
                         >
-                            {query.data && query.data.data && Array.isArray(query.data.data) && query.data.data.map((role: RolDto) => (
+                            {roles.map((role: RolDto) => (
                                 <MenuItem key={role.roleId} value={role.roleId}>
                                     {role.name}
                                 </MenuItem>
@@ -228,4 +240,4 @@ const User = () => {
     )
 }
 
-export default User;
+export default UserComponent;
